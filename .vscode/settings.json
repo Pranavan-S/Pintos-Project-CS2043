@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "Makefile": "c",
+        "kbd.h": "c",
+        "interrupt.h": "c",
+        "syscall.h": "c",
+        "input.h": "c",
+        "stdio.h": "c",
+        "random": "c",
+        "console.h": "c",
+        "malloc.h": "c"
+    }
+}
