@@ -209,7 +209,7 @@ thread_create (const char *name, int priority,
 
    This function must be called with interrupts turned off.  It
    is usually a better idea to use one of the synchronization
-   primitives in synch.h. */
+   primitives in synch.h */
 void
 thread_block (void) 
 {
@@ -227,7 +227,7 @@ thread_block (void)
    This function does not preempt the running thread.  This can
    be important: if the caller had disabled interrupts itself,
    it may expect that it can atomically unblock a thread and
-   update other data. */
+   update other data.*/
 void
 thread_unblock (struct thread *t) 
 {
@@ -583,16 +583,5 @@ allocate_tid (void)
    Used by switch.S, which can't figure it out on its own. */
 uint32_t thread_stack_ofs = offsetof (struct thread, stack);
 
-/* Function that compares the values for 'list_insert_ordered' function from 'lib\kernel\list.c'
-  Just like comparision operators but more complex as it deals with parts of structs 
-  returns true if the waiting time of thread_1 is less than that of thread_2*/
-bool 
-compare_wake_up_time(struct list_elem * list_elem_1, struct list_elem * list_elem_2){
-  // converting list_elem into the type of the container it is in.
-  struct thread* thread_1 = list_entry(list_elem_1, struct thread, elem);
-  struct thread* thread_2 = list_entry(list_elem_2, struct thread, elem);
 
-  // compare and return boolean value.
-  return thread_1->wake_up_ticks < thread_2->wake_up_ticks;
-}
 

@@ -92,6 +92,7 @@ struct thread
 
     /* Shared between thread.c and synch.c. */
     struct list_elem elem;              /* List element. */
+
     int64_t wake_up_ticks;             /* timer tick when thread wakes up again*/
 
 #ifdef USERPROG
@@ -139,13 +140,5 @@ void thread_set_nice (int);
 int thread_get_recent_cpu (void);
 int thread_get_load_avg (void);
 
-
-// Alarm Clock Implementation --------------------------------------------------
-
-
-// List of processes in sleeping state
-struct list sleeping_thread_list;
-
-bool compare_wake_up_time(struct list_elem * list_elem_1, struct list_elem * list_elem_2);
 
 #endif /* threads/thread.h */
