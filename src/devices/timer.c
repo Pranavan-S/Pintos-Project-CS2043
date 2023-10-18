@@ -35,7 +35,7 @@ static void real_time_sleep (int64_t num, int32_t denom);
 static void real_time_delay (int64_t num, int32_t denom);
 
 
-bool compare_wake_up_time(struct list_elem * list_elem_1, struct list_elem * list_elem_2);
+bool less_wake_up_time_than(struct list_elem * list_elem_1, struct list_elem * list_elem_2);
 
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -114,7 +114,7 @@ timer_sleep (int64_t ticks)
 
 
   // need to cast the pointer of the function
-  list_insert_ordered(&sleeping_thread_list,&current_thread->elem, (list_less_func *)compare_wake_up_time, NULL);
+  list_insert_ordered(&sleeping_thread_list,&current_thread->elem, (list_less_func *)less_wake_up_time_than, NULL);
 
   thread_block();
 
@@ -125,7 +125,7 @@ timer_sleep (int64_t ticks)
   Just like comparision operators but more complex as it deals with parts of structs 
   returns true if the waiting time of thread_1 is less than that of thread_2*/
 bool 
-compare_wake_up_time(struct list_elem * list_elem_1, struct list_elem * list_elem_2){
+less_wake_up_time_than(struct list_elem * list_elem_1, struct list_elem * list_elem_2){
   // converting list_elem into the type of the container it is in.
   struct thread* thread_1 = list_entry(list_elem_1, struct thread, elem);
   struct thread* thread_2 = list_entry(list_elem_2, struct thread, elem);
