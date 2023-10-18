@@ -372,7 +372,7 @@ thread_set_priority (int new_priority)
   thread_current ()->priority = new_priority;
 /* if the priority of the thread increases then no problem
 but if it is decreased there might be possibilities for some threads in ready queue 
-that has higher priority than current thread's priority value
+that has higher priority than current thread's priority value.
 
 so we yield the cpu time, so the current thread go to ready queue and ordered accoring to its priority
 then again get scheduled if it is still has high priority.
