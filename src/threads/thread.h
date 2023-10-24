@@ -162,7 +162,7 @@ int thread_get_load_avg (void);
 
 void donated_priority_update(struct thread* t);
 bool higher_donated_priority_than(struct list_elem* e1, struct list_elem* e2, void *x);
-
+bool is_highest_priority(void);
 
 
 #endif /* threads/thread.h */
