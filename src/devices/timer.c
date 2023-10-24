@@ -210,13 +210,15 @@ timer_interrupt (struct intr_frame *args UNUSED)
 {
   ticks++;
   thread_tick ();
+  bool wake_flag= false;
+  struct list_elem * front_list_elem;
+  struct thread *woken_thread;
 
   /*Check for any threads that can be woken up*/
-  struct thread *woken_thread;
   while (!list_empty(&sleeping_thread_list))
   {
     // front list element of sleeping threads list
-    struct list_elem * front_list_elem = list_front(&sleeping_thread_list);
+    front_list_elem = list_front(&sleeping_thread_list);
 
     // thread that has finished sleeping
     woken_thread = list_entry(front_list_elem, struct thread, elem);
@@ -229,6 +231,11 @@ timer_interrupt (struct intr_frame *args UNUSED)
 
     // move thread to ready state
     thread_unblock(woken_thread);
+    wake_flag = true;
+  }
+
+  if (wake_flag && !is_highest_priority()){
+    intr_yield_on_return();
   }
 }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------

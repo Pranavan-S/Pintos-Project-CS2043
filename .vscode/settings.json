@@ -8,6 +8,11 @@
         "stdio.h": "c",
         "random": "c",
         "console.h": "c",
-        "malloc.h": "c"
+        "malloc.h": "c",
+        "flags.h": "c",
+        "intr-stubs.h": "c",
+        "palloc.h": "c",
+        "switch.h": "c",
+        "synch.h": "c"
     }
 }

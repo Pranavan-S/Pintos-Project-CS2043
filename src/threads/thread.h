@@ -4,6 +4,7 @@
 #include <debug.h>
 #include <list.h>
 #include <stdint.h>
+#include "threads/synch.h"
 
 /* States in a thread's life cycle. */
 enum thread_status
@@ -95,6 +96,13 @@ struct thread
 
     int64_t wake_up_ticks;             /* timer tick when thread wakes up again*/
 
+    int priority_don;                  /*priority after priority donation*/
+    struct list locks_held;            /*list of locks currently held by thread*/
+    struct lock* target_lock;          /*lock targetted by the thread*/
+
+    struct thread* parent;
+    struct list children;              /*child thread list*/
+
 #ifdef USERPROG
     /* Owned by userprog/process.c. */
     uint32_t *pagedir;                  /* Page directory. */
@@ -103,6 +111,18 @@ struct thread
     /* Owned by thread.c. */
     unsigned magic;                     /* Detects stack overflow. */
   };
+
+/*information of child thread*/
+struct child
+{
+  tid_t tid;
+  int exit_status;
+  bool load_success;
+  bool exit;
+  struct semaphore wait_sema;
+  struct list_elem elem;
+};
+
 
 /* If false (default), use round-robin scheduler.
    If true, use multi-level feedback queue scheduler.
@@ -139,6 +159,10 @@ int thread_get_nice (void);
 void thread_set_nice (int);
 int thread_get_recent_cpu (void);
 int thread_get_load_avg (void);
+
+void donated_priority_update(struct thread* t);
+bool higher_donated_priority_than(struct list_elem* e1, struct list_elem* e2, void *x);
+
 
 
 #endif /* threads/thread.h */
