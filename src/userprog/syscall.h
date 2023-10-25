@@ -18,9 +18,9 @@ void syscall_init (void);
 
 struct child_process {
   int pid;
-  int load_status;
-  int wait;
-  int exit;
+  int load_status;  // status of the loading process
+  int wait; // waiting information
+  int exit; // exit information
   int status;
   struct semaphore load_sema;
   struct semaphore exit_sema;

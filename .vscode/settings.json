@@ -13,6 +13,7 @@
         "intr-stubs.h": "c",
         "palloc.h": "c",
         "switch.h": "c",
-        "synch.h": "c"
+        "synch.h": "c",
+        "thread.h": "c"
     }
 }
